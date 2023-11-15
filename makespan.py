@@ -38,31 +38,41 @@ def get_file_in_folder(path, extension):
     return files_list
 
 
+def get_makespan_list(foldername):
+    makespanlist = []
+    for zipfilename in get_file_in_folder(foldername, 'zip'):
+        csv = get_csv_from_zip(zipfilename)
+        #print(csv)
+        txt = get_txt_from_zip(zipfilename)
+        #print(txt)
+        makespan = int( extract_data(txt, 'makespan: ').split()[0] )
+        print(makespan)
+        makespanlist.append(makespan)
+    return makespanlist
+
+
 def main():
     print("Makespan analysis\n")
-    if len(sys.argv) != 2:
-        print(f"usage: {sys.argv[0]} <pathname>")
+    if len(sys.argv) < 2:
+        print(f"usage: {sys.argv[0]} <pathname(s)> ...")
         exit(1)
-    foldername = sys.argv[1]
-    if os.path.isfile(foldername):
-        print(f"usage: {sys.argv[0]} <pathname>")
-        exit(1)
-    elif os.path.isdir(foldername):
-        makespanlist = []
-        for zipfilename in get_file_in_folder(foldername, 'zip'):
-            csv = get_csv_from_zip(zipfilename)
-            #print(csv)
-            txt = get_txt_from_zip(zipfilename)
-            #print(txt)
-            makespan = int( extract_data(txt, 'makespan: ').split()[0] )
-            #print(makespan)
-            makespanlist.append(makespan)
-        df = pd.DataFrame(makespanlist, columns=['makespan'])
-        print(df)
-        #boxplot = df.boxplot(column=['makespan'])
-        df['makespan'].plot(kind='box')
-        plt.show()
-        
+    dataframes = pd.DataFrame([])
+    for i in range(1, len(sys.argv)):
+        print(sys.argv[i])
+        foldername = sys.argv[i]
+        if os.path.isfile(foldername):
+            print(f"ignore file {foldername}")
+        elif os.path.isdir(foldername):
+            makespanlist = get_makespan_list(foldername)
+            df = pd.DataFrame(makespanlist, columns=[foldername])
+            #print(df)
+            dataframes = pd.concat([dataframes, df], axis=1)
+
+    print(dataframes)
+    dataframes.plot(kind='box')
+    plt.title('makespan')
+    plt.show()
+
 
 if __name__ == "__main__":
     main()
