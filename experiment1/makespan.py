@@ -44,11 +44,15 @@ def get_makespan_list(foldername):
         csv = get_csv_from_zip(zipfilename)
         #print(csv)
         txt = get_txt_from_zip(zipfilename)
+        if (not isinstance(txt, str)):
+            print(f"type mismatch: {zipfilename}")
+            exit(1)
         #print(txt)
         makespan = int( extract_data(txt, 'makespan: ').split()[0] )
         observations = int( extract_data(txt, 'total observations collected: ') )
+        input_size = int( extract_data(txt, 'inputSize  : cnt ').split(',')[0] )
         #print(f"{observations} {makespan}")
-        makespanlist.append( [observations, makespan] )
+        makespanlist.append( [input_size, makespan] )
     return makespanlist
 
 
@@ -65,6 +69,7 @@ def analyse_folder(foldername):
 
 
 def main():
+    cwd = os.getcwd().split('\\')[-1]
     print("Makespan analysis\n")
     if len(sys.argv) < 2:
         print(f"usage: {sys.argv[0]} <pathname(s)> ...")
@@ -85,9 +90,10 @@ def main():
         plt.scatter(dataframes[i]['Observations'], dataframes[i][cname], marker=markers[i], label=cname)
 
     plt.title('makespan in ms')
+    plt.xlabel("input size")
     plt.legend()
     #plt.show()
-    plt.savefig('experiment1.png')
+    plt.savefig(f"{cwd}.png")
 
 
 if __name__ == "__main__":
