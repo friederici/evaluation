@@ -51,6 +51,10 @@ def get_makespan_list(foldername):
         makespan = int( extract_data(txt, 'makespan: ').split()[0] )
         observations = int( extract_data(txt, 'total observations collected: ') )
         input_size = int( extract_data(txt, 'inputSize  : cnt ').split(',')[0] )
+        success = int( extract_data(txt, 'success count: ') )
+        if (success != input_size):
+            print(f"success != input_size {zipfilename}")
+            exit(1)
         #print(f"{observations} {makespan}")
         makespanlist.append( [input_size, makespan] )
     return makespanlist
