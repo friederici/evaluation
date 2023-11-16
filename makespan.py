@@ -64,19 +64,17 @@ def main():
             print(f"ignore file {foldername}")
         elif os.path.isdir(foldername):
             makespanlist = get_makespan_list(foldername)
-            plotname = foldername.split('\\')[2]
-            if '_' in plotname:
-                plotname = plotname.split('_')[0]
-            print(plotname)
+            plotname = foldername.split('\\')[1].replace("Predictor","P.")
+            print(f"Plotname is: {plotname}")
             df = pd.DataFrame(makespanlist, columns=[foldername])
-            #df.rename(columns={foldername: plotname}, inplace=True)
+            df.rename(columns={foldername: plotname}, inplace=True)
             #print(df)
             dataframes = pd.concat([dataframes, df], axis=1)
 
     print(dataframes)
     dataframes.plot(kind='box')
     plt.title('makespan')
-    #plt.xticks(rotation=90)
+    #plt.xticks(rotation=30)
     plt.show()
 
 
