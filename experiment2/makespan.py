@@ -87,7 +87,7 @@ def main():
     plt.title('makespan in ms')
     plt.legend()
     #plt.show()
-    plt.savefig('experiment1.png')
+    plt.savefig('experiment2.png')
 
 
 if __name__ == "__main__":
