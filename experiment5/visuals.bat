@@ -1,6 +1,6 @@
 python makespan.py ^
 measurements\NonePredictor ^
-measurements\ConstantPredictor ^
+#measurements\ConstantPredictor ^
 measurements\LinearPredictor ^
-measurements\CombiPredictor ^
+#measurements\CombiPredictor ^
 measurements\WaryPredictor
