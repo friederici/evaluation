@@ -39,7 +39,7 @@ def get_file_in_folder(path, extension):
 
 
 def get_makespan_list(foldername):
-    makespandict = {}
+    makespanlist = []
     for zipfilename in get_file_in_folder(foldername, 'zip'):
         csv = get_csv_from_zip(zipfilename)
         #print(csv)
@@ -48,28 +48,46 @@ def get_makespan_list(foldername):
         makespan = int( extract_data(txt, 'makespan: ').split()[0] )
         observations = int( extract_data(txt, 'total observations collected: ') )
         #print(f"{observations} {makespan}")
-        makespandict[observations] = makespan
-    return makespandict
+        makespanlist.append( [observations, makespan] )
+    return makespanlist
+
+
+def analyse_folder(foldername):
+    if os.path.isfile(foldername):
+        print(f"ignore file {foldername}")
+    elif os.path.isdir(foldername):
+        makespanlist = get_makespan_list(foldername)
+        #print(makespanlist)
+        #print(foldername.split('\\')[1])
+        df = pd.DataFrame(makespanlist, columns=['Observations',foldername.split('\\')[1]])
+        #print(df)
+        return df
 
 
 def main():
     print("Makespan analysis\n")
     if len(sys.argv) < 2:
-        print(f"usage: {sys.argv[0]} <pathname>")
+        print(f"usage: {sys.argv[0]} <pathname(s)> ...")
         exit(1)
-    print(sys.argv[1])
-    foldername = sys.argv[1]
-    if os.path.isfile(foldername):
-        print(f"ignore file {foldername}")
-    elif os.path.isdir(foldername):
-        makespandict = get_makespan_list(foldername)
-        print(makespandict)
+    dataframes = []
+    for i in range(1, len(sys.argv)):
+        #print(sys.argv[i])
+        df = analyse_folder( sys.argv[i] )
+        dataframes.append(df)
 
-        df = pd.DataFrame.from_dict(makespandict, orient='index')
-        print(df)
-        df.reset_index().plot(kind='scatter', x='index', y=0)
-        plt.title('makespan')
-        plt.show()
+    #fig = plt.figure()
+    
+    markers = ['o','*','+','x', 'v']
+    for i in range(0, len(dataframes)):
+        cname = dataframes[i].columns[1]
+        #print(dataframes[i]["Observations"])
+        #print(dataframes[i][cname])
+        plt.scatter(dataframes[i]['Observations'], dataframes[i][cname], marker=markers[i], label=cname)
+
+    plt.title('makespan in ms')
+    plt.legend()
+    #plt.show()
+    plt.savefig('experiment1.png')
 
 
 if __name__ == "__main__":
