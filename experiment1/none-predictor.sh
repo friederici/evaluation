@@ -10,6 +10,6 @@ do
 	cd /workflows/synthetic/1_const/
 	make clean
 	make dev-run-none
-	zip /evaluation/experiment1/measurements/exp1-$i.zip .nextflow.log TaskScaler* trace*
+	zip /evaluation/experiment1/measurements/NonePredictor/exp1-$i.zip .nextflow.log TaskScaler* trace*
 done
 
