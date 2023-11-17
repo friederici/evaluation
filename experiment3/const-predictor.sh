@@ -6,7 +6,7 @@ for i in $(seq 1 10)
 do
 	cd /workflows/data/
 	rm -f *.txt
-	./createData.py custom $i
+	./reproducibleData.py $i
 	cd /workflows/synthetic/2_linear/
 	make clean
 	make dev-run-constant
