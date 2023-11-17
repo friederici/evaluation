@@ -2,7 +2,7 @@
 
 # Run workflow 2_linear with different number of input files
 
-for i in $(seq 1 10)
+for i in $(seq 1 15)
 do
 	cd /workflows/data/
 	rm -f *.txt
