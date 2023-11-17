@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Run workflow 3_square for 10 times with 15 inputfiles - WaryPredictor
+# Run workflow 2_linear for 10 times with 15 inputfiles - WaryPredictor
 
 cd /workflows/data/
 rm -f *.txt
 ./createData.py custom 15
 
-cd /workflows/synthetic/3_square/
+cd /workflows/synthetic/2_linear/
 
 for i in $(seq 1 10)
 do
