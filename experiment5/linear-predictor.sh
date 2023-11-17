@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Run workflow 2_linear for 10 times with 15 inputfiles - LinearPredictor
+# Run workflow 3_square for 10 times with 15 inputfiles - LinearPredictor
 
 cd /workflows/data/
 rm -f *.txt
