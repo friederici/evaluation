@@ -6,7 +6,7 @@ for i in $(seq 1 50)
 do
 	cd /workflows/data/
 	rm -f *.txt
-	./createData.py custom $i
+	./reproducibleData.py $i
 	cd /workflows/synthetic/1_const/
 	make clean
 	make prod-run-constant
