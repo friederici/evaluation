@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Run workflow 1_constant with different number of input files
+# Run workflow 1_const with different number of input files - ConstantPredictor
 
-for i in $(seq 1 30)
+for i in $(seq 1 50)
 do
 	cd /workflows/data/
 	rm -f *.txt
