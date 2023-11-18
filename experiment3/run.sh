@@ -2,7 +2,7 @@
 
 mkdir -p measurements
 mkdir -p measurements/NonePredictor
-mkdir -p measurements/ConstPredictor
+mkdir -p measurements/ConstantPredictor
 mkdir -p measurements/LinearPredictor
 mkdir -p measurements/CombiPredictor
 mkdir -p measurements/WaryPredictor
