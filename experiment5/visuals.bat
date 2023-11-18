@@ -1,4 +1,4 @@
-python makespan.py ^
+python makespan-boxplot.py ^
 measurements\NonePredictor ^
 measurements\ConstantPredictor ^
 measurements\LinearPredictor ^
