@@ -40,13 +40,12 @@ def get_file_in_folder(path, extension):
 
 
 def get_summary(foldername):
-    failed_tasks = 0
     for zipfilename in get_file_in_folder(foldername, 'zip'):
         csv = get_csv_from_zip(zipfilename)
         #print(csv)
         failed = csv[csv['success'] == False]
-        #print(len(failed))
-        failed_tasks = failed_tasks + len(failed)
+        print(failed)
+        
         txt = get_txt_from_zip(zipfilename)
         if (not isinstance(txt, str)):
             print(f"type mismatch: {zipfilename}")
@@ -60,17 +59,15 @@ def get_summary(foldername):
             print(f"success != input_size {zipfilename}")
             exit(1)
         #print(f"{observations} {makespan}")
-    return failed_tasks
-    
+
 
 def analyse_folder(foldername):
     predictor_name = Path(foldername).parts[-1]
     if os.path.isfile(foldername):
         print(f"ignore file {foldername}")
     elif os.path.isdir(foldername):
-        failed_tasks = get_summary(foldername)
-    return (predictor_name, failed_tasks)
-    
+        get_summary(foldername)
+
 
 def main():
     cwd = Path.cwd().parts[-1]
@@ -78,11 +75,9 @@ def main():
     if len(sys.argv) < 2:
         print(f"usage: {sys.argv[0]} <pathname(s)> ...")
         exit(1)
-    failed_tasks_summary = []
     for i in range(1, len(sys.argv)):
-        failed_tasks_summary.append(analyse_folder( sys.argv[i] ))
-    print(failed_tasks_summary)
-    
+        analyse_folder( sys.argv[i] )
+
 
 if __name__ == "__main__":
     main()
