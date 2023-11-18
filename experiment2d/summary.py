@@ -39,11 +39,13 @@ def get_file_in_folder(path, extension):
     return files_list
 
 
-def get_makespan_list(foldername):
-    makespanlist = []
+def get_summary(foldername):
     for zipfilename in get_file_in_folder(foldername, 'zip'):
         csv = get_csv_from_zip(zipfilename)
         #print(csv)
+        failed = csv[csv['success'] == False]
+        print(failed)
+        
         txt = get_txt_from_zip(zipfilename)
         if (not isinstance(txt, str)):
             print(f"type mismatch: {zipfilename}")
@@ -57,8 +59,6 @@ def get_makespan_list(foldername):
             print(f"success != input_size {zipfilename}")
             exit(1)
         #print(f"{observations} {makespan}")
-        makespanlist.append( [input_size, makespan] )
-    return makespanlist
 
 
 def analyse_folder(foldername):
@@ -66,45 +66,17 @@ def analyse_folder(foldername):
     if os.path.isfile(foldername):
         print(f"ignore file {foldername}")
     elif os.path.isdir(foldername):
-        makespanlist = get_makespan_list(foldername)
-        #print(makespanlist)
-        #print(foldername.split('\\')[1])
-        df = pd.DataFrame(makespanlist, columns=['Observations',predictor_name])
-        #print(df)
-        return df
+        get_summary(foldername)
 
 
 def main():
     cwd = Path.cwd().parts[-1]
-    print("Makespan analysis -> boxplot\n")
+    print("Makespan analysis -> summary\n")
     if len(sys.argv) < 2:
         print(f"usage: {sys.argv[0]} <pathname(s)> ...")
         exit(1)
-    dataframes = []
     for i in range(1, len(sys.argv)):
-        #print(sys.argv[i])
-        df = analyse_folder( sys.argv[i] )
-        dataframes.append(df)
-
-    #fig = plt.figure()
-    
-    test = []
-    names = []
-    markers = ['o','*','+','x', 'v']
-    for i in range(0, len(dataframes)):
-        cname = dataframes[i].columns[1]
-        #print(dataframes[i]["Observations"])
-        print(dataframes[i][cname])
-        test.append(dataframes[i][cname])
-        names.append(cname.replace("Predictor", "P."))
-
-    plt.boxplot(test, labels=names)
-    plt.title('makespan in ms')
-    plt.xlabel("Predictor")
-    axes = plt.gca()
-    axes.set_ylim([75000,150000])
-    #plt.show()
-    plt.savefig(f"{cwd}-boxplot.png")
+        analyse_folder( sys.argv[i] )
 
 
 if __name__ == "__main__":

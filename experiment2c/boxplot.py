@@ -101,6 +101,8 @@ def main():
     plt.boxplot(test, labels=names)
     plt.title('makespan in ms')
     plt.xlabel("Predictor")
+    axes = plt.gca()
+    axes.set_ylim([75000,150000])
     #plt.show()
     plt.savefig(f"{cwd}-boxplot.png")
 

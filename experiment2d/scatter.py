@@ -76,7 +76,7 @@ def analyse_folder(foldername):
 
 def main():
     cwd = Path.cwd().parts[-1]
-    print("Makespan analysis -> boxplot\n")
+    print("Makespan analysis -> scatterplot\n")
     if len(sys.argv) < 2:
         print(f"usage: {sys.argv[0]} <pathname(s)> ...")
         exit(1)
@@ -88,23 +88,18 @@ def main():
 
     #fig = plt.figure()
     
-    test = []
-    names = []
     markers = ['o','*','+','x', 'v']
     for i in range(0, len(dataframes)):
         cname = dataframes[i].columns[1]
         #print(dataframes[i]["Observations"])
-        print(dataframes[i][cname])
-        test.append(dataframes[i][cname])
-        names.append(cname.replace("Predictor", "P."))
+        #print(dataframes[i][cname])
+        plt.scatter(dataframes[i]['Observations'], dataframes[i][cname], marker=markers[i], label=cname)
 
-    plt.boxplot(test, labels=names)
     plt.title('makespan in ms')
-    plt.xlabel("Predictor")
-    axes = plt.gca()
-    axes.set_ylim([75000,150000])
+    plt.xlabel("input size")
+    plt.legend()
     #plt.show()
-    plt.savefig(f"{cwd}-boxplot.png")
+    plt.savefig(f"{cwd}-scatter.png")
 
 
 if __name__ == "__main__":
