@@ -8,10 +8,16 @@ basedir=$(pwd)
 
 for wf in "${workflows[@]}"
 do
+	# reset cluster
+	#/workflows/requirements/clear_cluster.sh
+	#/workflows/requirements/apply_cluster.sh
+
 	for pd in "${!predictors[@]}"
 	do
-		mkdir -p $wf/measurements/$pd
-		for i in $(seq 1 30)
+		cd $basedir
+		echo mkdir -p $wf/measurements/${predictors[$pd]}
+		mkdir -p $wf/measurements/${predictors[$pd]}
+		for i in $(seq 1 2)
 		do
 			# iteration information
 			echo -n "$i "
@@ -29,10 +35,11 @@ do
 			# clean, run, zip
 			make clean
 			pwd
+			date
 			echo make prod-run-${maketarget[$pd]}
-			make make prod-run-${maketarget[$pd]}
+			make prod-run-${maketarget[$pd]}
 			echo zip $basedir/$wf/measurements/${predictors[$pd]}/exp-$i.zip .nextflow.log TaskScaler* trace*
-			zip zip $basedir/$wf/measurements/${predictors[$pd]}/exp-$i.zip .nextflow.log TaskScaler* trace*
+			zip $basedir/$wf/measurements/${predictors[$pd]}/exp-$i.zip .nextflow.log TaskScaler* trace*
 		done
 	done
 done
