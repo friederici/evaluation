@@ -5,6 +5,7 @@ import zipfile
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
+import numpy as np
 
 
 def extract_data(data, search):
@@ -89,11 +90,14 @@ def main():
     #fig = plt.figure()
     
     markers = ['o','*','+','x', 'v']
+    linestyle = ['solid','dotted','dashed','dashdot',(0,(5,5))]
     for i in range(0, len(dataframes)):
         cname = dataframes[i].columns[1]
         #print(dataframes[i]["Observations"])
         #print(dataframes[i][cname])
         plt.scatter(dataframes[i]['Observations'], dataframes[i][cname], marker=markers[i], label=cname)
+        m, b = np.polyfit(dataframes[i]['Observations'], dataframes[i][cname], 1)
+        plt.plot(dataframes[i]['Observations'], m*dataframes[i]['Observations']+b, linestyle=linestyle[i])
 
     plt.title(f"{cwd} makespan in ms")
     plt.xlabel("input size")
