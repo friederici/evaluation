@@ -17,7 +17,7 @@ do
 		cd $basedir
 		echo mkdir -p $wf/measurements/${predictors[$pd]}
 		mkdir -p $wf/measurements/${predictors[$pd]}
-		for i in $(seq 1 10)
+		for i in $(seq 1 11)
 		do
 			# iteration information
 			echo -n "$i "
@@ -27,7 +27,7 @@ do
 			# create dataset
 			cd /workflows/data/
 			rm -f *.txt
-			./reproducibleData.py 20
+			./reproducibleData.py 24
 
 			# change to workflow
 			cd /workflows/synthetic/$wf/
