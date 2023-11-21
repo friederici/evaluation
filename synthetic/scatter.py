@@ -119,6 +119,8 @@ def main():
     plt.ylabel("minutes : seconds")
     plt.xlabel("number of input files")
     plt.legend()
+    axes = plt.gca()
+    axes.set_ylim([0,255000])
     #plt.show()
     plt.savefig(f"{cwd}-scatter.png")
 
