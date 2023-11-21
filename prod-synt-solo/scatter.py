@@ -6,6 +6,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 import numpy as np
+import matplotlib.ticker as ticker
+from matplotlib.axis import Axis
+from matplotlib.dates import DateFormatter
 
 
 def extract_data(data, search):
@@ -75,6 +78,17 @@ def analyse_folder(foldername):
         return df
 
 
+def ms_to_mmss(time):
+    seconds = int(time/1000)
+    (hours, seconds) = divmod(seconds, 3600)
+    (minutes, seconds) = divmod(seconds, 60)
+    return f"{minutes:02.0f}:{seconds:02.0f}"
+
+
+def convert_axis(x, pos):
+    return ms_to_mmss(x)
+    
+
 def main():
     cwd = Path.cwd().parts[-1]
     print("Makespan analysis -> scatterplot\n")
@@ -87,7 +101,7 @@ def main():
         df = analyse_folder( sys.argv[i] )
         dataframes.append(df)
 
-    #fig = plt.figure()
+    fig, ax = plt.subplots()
     
     markers = ['o','*','+','x', 'v']
     linestyle = ['solid','dotted','dashed','dashdot',(0,(5,5))]
@@ -99,9 +113,14 @@ def main():
         m, b = np.polyfit(dataframes[i]['Observations'], dataframes[i][cname], 1)
         plt.plot(dataframes[i]['Observations'], m*dataframes[i]['Observations']+b, linestyle=linestyle[i])
 
-    plt.title(f"{cwd} makespan in ms")
-    plt.xlabel("input size")
+    formatter = ticker.FuncFormatter(convert_axis)
+    Axis.set_major_formatter(ax.yaxis, formatter)
+    plt.title(f"makespan: {cwd}")
+    plt.ylabel("minutes : seconds")
+    plt.xlabel("number of input files")
     plt.legend()
+    axes = plt.gca()
+    axes.set_ylim([0,255000])
     #plt.show()
     plt.savefig(f"{cwd}-scatter.png")
 
