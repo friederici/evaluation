@@ -1,6 +1,6 @@
 #!/bin/bash
 
-workflows=( "1_const" "2_linear" "3_square" "4_random" "5_compound" "6_compound_square" "7_compound_square_random" )
+workflows=( "5_compound" "6_compound_square" "7_compound_square_random" )
 predictors=( "NonePredictor" "ConstantPredictor" "LinearPredictor" "CombiPredictor" "WaryPredictor" )
 maketarget=( "none" "constant" "linear" "combi" "wary" )
 
@@ -17,7 +17,7 @@ do
 		cd $basedir
 		echo mkdir -p $wf/measurements/${predictors[$pd]}
 		mkdir -p $wf/measurements/${predictors[$pd]}
-		for i in $(seq 1 3 50)
+		for i in $(seq 1 10)
 		do
 			# iteration information
 			echo -n "$i "
@@ -27,7 +27,7 @@ do
 			# create dataset
 			cd /workflows/data/
 			rm -f *.txt
-			./reproducibleData.py $i
+			./reproducibleData.py 20
 
 			# change to workflow
 			cd /workflows/synthetic/$wf/
