@@ -100,7 +100,7 @@ def main():
         plt.plot(dataframes[i]['Observations'], m*dataframes[i]['Observations']+b, linestyle=linestyle[i])
 
     plt.title(f"{cwd} makespan in ms")
-    plt.xlabel("input size")
+    plt.xlabel("number of input files")
     plt.legend()
     #plt.show()
     plt.savefig(f"{cwd}-scatter.png")
