@@ -1,6 +1,7 @@
 #!/bin/bash
 
-workflows=( "1_const" "2_linear" "3_square" "4_random" "5_compound" "6_compound_square" "7_compound_square_random" )
+#workflows=( "1_const" "2_linear" "3_square" "4_random" "5_compound" "6_compound_square" "7_compound_square_random" )
+workflows=( "3_square" "4_random" "5_compound" "6_compound_square" "7_compound_square_random" )
 predictors=( "NonePredictor" "ConstantPredictor" "LinearPredictor" "CombiPredictor" "WaryPredictor" )
 maketarget=( "none" "constant" "linear" "combi" "wary" )
 
@@ -8,16 +9,16 @@ basedir=$(pwd)
 
 for wf in "${workflows[@]}"
 do
-	# reset cluster
-	#/workflows/requirements/clear_cluster.sh
-	#/workflows/requirements/apply_cluster.sh
-
 	for pd in "${!predictors[@]}"
 	do
+		# reset cluster
+		/workflows/requirements/clear_cluster.sh
+		/workflows/requirements/apply_cluster.sh
+
 		cd $basedir
 		echo mkdir -p $wf/measurements/${predictors[$pd]}
 		mkdir -p $wf/measurements/${predictors[$pd]}
-		for i in $(seq 1 2)
+		for i in $(seq 1 3 50)
 		do
 			# iteration information
 			echo -n "$i "
