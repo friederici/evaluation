@@ -8,7 +8,6 @@ from pathlib import Path
 import numpy as np
 import matplotlib.ticker as ticker
 from matplotlib.axis import Axis
-from matplotlib.dates import DateFormatter
 
 
 def extract_data(data, search):
