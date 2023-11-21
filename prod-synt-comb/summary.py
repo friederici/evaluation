@@ -41,12 +41,15 @@ def get_file_in_folder(path, extension):
 
 def get_summary(foldername):
     failed_tasks = 0
+    successful_tasks = 0
     for zipfilename in get_file_in_folder(foldername, 'zip'):
         csv = get_csv_from_zip(zipfilename)
         #print(csv)
         failed = csv[csv['success'] == False]
+        successTasks = csv[csv['success'] == True]
         #print(len(failed))
         failed_tasks = failed_tasks + len(failed)
+        successful_tasks = successful_tasks + len(successTasks)
         txt = get_txt_from_zip(zipfilename)
         if (not isinstance(txt, str)):
             print(f"type mismatch: {zipfilename}")
@@ -60,7 +63,7 @@ def get_summary(foldername):
             print(f"success != input_size {zipfilename}")
             exit(1)
         #print(f"{observations} {makespan}")
-    return failed_tasks
+    return failed_tasks, successful_tasks
     
 
 def analyse_folder(foldername):
@@ -68,8 +71,8 @@ def analyse_folder(foldername):
     if os.path.isfile(foldername):
         print(f"ignore file {foldername}")
     elif os.path.isdir(foldername):
-        failed_tasks = get_summary(foldername)
-    return (predictor_name, failed_tasks)
+        failed_tasks, successful_tasks = get_summary(foldername)
+    return (predictor_name, failed_tasks, successful_tasks)
     
 
 def main():

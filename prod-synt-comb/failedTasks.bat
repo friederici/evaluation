@@ -10,3 +10,4 @@ cd ..\7_compound_square_random
 python ..\summary.py measurements\NonePredictor measurements\ConstantPredictor measurements\LinearPredictor measurements\CombiPredictor measurements\WaryPredictor
 
 cd ..
+pause
