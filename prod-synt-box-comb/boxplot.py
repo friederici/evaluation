@@ -5,6 +5,8 @@ import zipfile
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
+import matplotlib.ticker as ticker
+from matplotlib.axis import Axis
 
 
 def extract_data(data, search):
@@ -74,6 +76,17 @@ def analyse_folder(foldername):
         return df
 
 
+def ms_to_mmss(time):
+    seconds = int(time/1000)
+    (hours, seconds) = divmod(seconds, 3600)
+    (minutes, seconds) = divmod(seconds, 60)
+    return f"{minutes:02.0f}:{seconds:02.0f}"
+
+
+def convert_axis(x, pos):
+    return ms_to_mmss(x)
+
+
 def main():
     cwd = Path.cwd().parts[-1]
     print("Makespan analysis -> boxplot\n")
@@ -86,7 +99,7 @@ def main():
         df = analyse_folder( sys.argv[i] )
         dataframes.append(df)
 
-    #fig = plt.figure()
+    fig, ax = plt.subplots()
     
     test = []
     names = []
@@ -98,10 +111,13 @@ def main():
         test.append(dataframes[i][cname])
         names.append(cname.replace("Predictor", "P."))
 
+    formatter = ticker.FuncFormatter(convert_axis)
+    Axis.set_major_formatter(ax.yaxis, formatter)
     plt.boxplot(test, labels=names)
-    plt.title('makespan in ms')
+    plt.title(f"makespan: {cwd}")
+    plt.ylabel("minutes : seconds")
     plt.xlabel("Predictor")
-    #axes = plt.gca()
+    axes = plt.gca()
     #axes.set_ylim([75000,150000])
     #plt.show()
     plt.savefig(f"{cwd}-boxplot.png")
