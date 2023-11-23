@@ -9,8 +9,10 @@ do
 
 	for i in $(seq 1 11);
 	do
+		predictor=/workflows/config/${config[$cnf]}.config
+
 		# iteration information
-		echo ${config[$cnf]} $i
+		echo $predictor $i
 
 		# reset cluster
 		#/workflows/requirements/clear_cluster.sh
@@ -27,7 +29,8 @@ do
 		#rm Task*
 
 		# run workflow
-		#nextflow run main.nf -config /workflows/config/rnaseq.config -config /workflows/config/wary.config --outdir /nfs/data/output
+		echo nextflow run main.nf -config /workflows/config/rnaseq.config -config $predictor --outdir /nfs/data/output
+		#nextflow run main.nf -config /workflows/config/rnaseq.config -config $predictor --outdir /nfs/data/output
 
 		# store results
 		#zip /workflows/rnaseq/result_rnaseq_$i.zip Task* trace* .nextflow.log*
