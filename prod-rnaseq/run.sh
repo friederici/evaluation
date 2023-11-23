@@ -19,17 +19,18 @@ do
 
 		# iteration information
 		echo $predictor $i
+		pwd
 
 		# reset cluster
 		#/workflows/requirements/clear_cluster.sh
 		#/workflows/requirements/apply_cluster.sh
 
 		# clear old outputs
-		#cd /nfs/data/output
+		cd /nfs/data/output
 		#rm -rf *
 
 		# clear old results
-		#cd /nfs/input/pipelines/rnaseq
+		cd /nfs/input/pipelines/rnaseq
 		#rm -rf work
 		#rm -rf .nextflow*
 		#rm Task*
