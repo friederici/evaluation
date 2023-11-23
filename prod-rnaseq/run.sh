@@ -1,11 +1,17 @@
 #!/bin/bash
 
+predictors=( "NonePredictor" "ConstantPredictor" "LinearPredictor" "CombiPredictor" "WaryPredictor" )
 config=( "none" "constant" "linear" "combi" "wary" )
 
 basedir=$(pwd)
 
 for cnf in "${!config[@]}"
 do
+
+	# create measurement folder
+	cd $basedir
+	echo mkdir -p measurements/${predictors[$cnf]}
+	mkdir -p measurements/${predictors[$cnf]}
 
 	for i in $(seq 1 11);
 	do
@@ -33,6 +39,7 @@ do
 		#nextflow run main.nf -config /workflows/config/rnaseq.config -config $predictor --outdir /nfs/data/output
 
 		# store results
+		echo zip /workflows/rnaseq/result_rnaseq_$i.zip Task* trace* .nextflow.log*
 		#zip /workflows/rnaseq/result_rnaseq_$i.zip Task* trace* .nextflow.log*
 	done
 
