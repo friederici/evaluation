@@ -1,16 +1,16 @@
 #!/bin/bash
 
-maketarget=( "none" "constant" "linear" "combi" "wary" )
+config=( "none" "constant" "linear" "combi" "wary" )
 
 basedir=$(pwd)
 
-for mt in "${!maketarget[@]}"
+for cnf in "${!config[@]}"
 do
 
 	for i in $(seq 1 11);
 	do
 		# iteration information
-		echo $mt $i
+		echo ${config[$cnf]} $i
 
 		# reset cluster
 		#/workflows/requirements/clear_cluster.sh
