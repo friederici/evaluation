@@ -1,20 +1,36 @@
 #!/bin/bash
 
-for i in $(seq 1 10);
+maketarget=( "none" "constant" "linear" "combi" "wary" )
+
+basedir=$(pwd)
+
+for mt in "${!maketarget[@]}"
 do
-	echo $i
-	/workflows/requirements/clear_cluster.sh
-	/workflows/requirements/apply_cluster.sh
 
-	cd /nfs/data/output
-	rm -rf *
+	for i in $(seq 1 11);
+	do
+		# iteration information
+		echo $mt $i
 
-	cd /nfs/input/pipelines/rnaseq
-	rm -rf work
-	rm -rf .nextflow*
-	rm Task*
+		# reset cluster
+		#/workflows/requirements/clear_cluster.sh
+		#/workflows/requirements/apply_cluster.sh
 
-	nextflow run main.nf -config /workflows/config/rnaseq.config -config /workflows/config/wary.config --outdir /nfs/data/output
+		# clear old outputs
+		#cd /nfs/data/output
+		#rm -rf *
 
-	zip /workflows/rnaseq/result_rnaseq_$i.zip Task* trace* .nextflow.log*
+		# clear old results
+		#cd /nfs/input/pipelines/rnaseq
+		#rm -rf work
+		#rm -rf .nextflow*
+		#rm Task*
+
+		# run workflow
+		#nextflow run main.nf -config /workflows/config/rnaseq.config -config /workflows/config/wary.config --outdir /nfs/data/output
+
+		# store results
+		#zip /workflows/rnaseq/result_rnaseq_$i.zip Task* trace* .nextflow.log*
+	done
+
 done
