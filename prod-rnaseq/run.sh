@@ -39,8 +39,8 @@ do
 		#nextflow run main.nf -config /workflows/config/rnaseq.config -config $predictor --outdir /nfs/data/output
 
 		# store results
-		echo zip /workflows/rnaseq/result_rnaseq_$i.zip Task* trace* .nextflow.log*
-		#zip /workflows/rnaseq/result_rnaseq_$i.zip Task* trace* .nextflow.log*
+		echo zip $basedir/measurements/${predictors[$cnf]}/result_rnaseq_$i.zip Task* trace* .nextflow.log*
+		#zip $basedir/measurements/${predictors[$cnf]}/result_rnaseq_$i.zip Task* trace* .nextflow.log*
 	done
 
 done
