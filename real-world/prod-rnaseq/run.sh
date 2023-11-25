@@ -5,16 +5,15 @@ config=( "none" "constant" "linear" "combi" "wary" )
 
 basedir=$(pwd)
 
-for cnf in "${!config[@]}"
+for i in $(seq 1 11);
 do
-
-	# create measurement folder
-	cd $basedir
-	echo mkdir -p measurements/${predictors[$cnf]}
-	mkdir -p measurements/${predictors[$cnf]}
-
-	for i in $(seq 1 11);
+	for cnf in "${!config[@]}"
 	do
+		# create measurement folder
+		cd $basedir
+		echo mkdir -p measurements/${predictors[$cnf]}
+		mkdir -p measurements/${predictors[$cnf]}
+
 		predictor=/workflows/config/${config[$cnf]}.config
 
 		# iteration information
@@ -43,5 +42,4 @@ do
 		echo zip $basedir/measurements/${predictors[$cnf]}/result_rnaseq_$i.zip Task* trace* .nextflow.log*
 		zip $basedir/measurements/${predictors[$cnf]}/result_rnaseq_$i.zip Task* trace* .nextflow.log*
 	done
-
 done
