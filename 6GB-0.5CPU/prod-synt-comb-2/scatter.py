@@ -120,7 +120,7 @@ def main():
     plt.xlabel("number of input files")
     plt.legend()
     axes = plt.gca()
-    #axes.set_ylim([0,1080000])
+    axes.set_ylim([0,840000])
     #plt.show()
     plt.savefig(f"{cwd}-scatter.png")
 
