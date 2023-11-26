@@ -1,15 +1,12 @@
 @echo off
 
-cd 1_const
+cd 5_compound
 python ..\summary.py measurements\NonePredictor measurements\ConstantPredictor measurements\LinearPredictor measurements\CombiPredictor measurements\WaryPredictor
 
-cd ..\2_linear
+cd ..\6_compound_square
 python ..\summary.py measurements\NonePredictor measurements\ConstantPredictor measurements\LinearPredictor measurements\CombiPredictor measurements\WaryPredictor
 
-cd ..\3_square
-python ..\summary.py measurements\NonePredictor measurements\ConstantPredictor measurements\LinearPredictor measurements\CombiPredictor measurements\WaryPredictor
-
-cd ..\4_random
+cd ..\7_compound_square_random
 python ..\summary.py measurements\NonePredictor measurements\ConstantPredictor measurements\LinearPredictor measurements\CombiPredictor measurements\WaryPredictor
 
 cd ..
