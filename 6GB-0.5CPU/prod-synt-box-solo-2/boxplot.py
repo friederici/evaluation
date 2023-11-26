@@ -118,7 +118,7 @@ def main():
     plt.ylabel("minutes : seconds")
     plt.xlabel("Predictor")
     axes = plt.gca()
-    #axes.set_ylim([75000,150000])
+    axes.set_ylim([40000,160000])
     #plt.show()
     plt.savefig(f"{cwd}-boxplot.png")
 
