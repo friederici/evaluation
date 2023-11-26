@@ -14,3 +14,5 @@ move *.png ../
 cd ..\4_random
 python ..\boxplot.py .\measurements\NonePredictor\ .\measurements\ConstantPredictor\ .\measurements\LinearPredictor\ .\measurements\CombiPredictor\ .\measurements\WaryPredictor\
 move *.png ../
+
+pause
