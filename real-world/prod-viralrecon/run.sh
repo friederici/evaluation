@@ -35,8 +35,8 @@ do
 		rm Task*
 
 		# run workflow
-		echo nextflow run main.nf -config /workflows/config/viralrecon.config -config $predictor --outdir /nfs/data/output
-		nextflow run main.nf -config /workflows/config/viralrecon.config -config $predictor --outdir /nfs/data/output
+		echo nextflow run main.nf -config /workflows/config/viralrecon.config -config $predictor --outdir /nfs/data/output --platform illumina --protocol amplicon
+		nextflow run main.nf -config /workflows/config/viralrecon.config -config $predictor --outdir /nfs/data/output --platform illumina --protocol amplicon
 
 		# store results
 		echo zip $basedir/measurements/${predictors[$cnf]}/result_viralrecon_${config[$cnf]}_$i.zip Task* trace* .nextflow.log*
