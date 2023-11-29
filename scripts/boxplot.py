@@ -118,9 +118,14 @@ def main():
     plt.ylabel("minutes : seconds")
     plt.xlabel("Predictor")
     axes = plt.gca()
-    #axes.set_ylim([75000,150000])
+    
+    lowerYlim = os.environ.get('YLIM1')
+    upperYlim = os.environ.get('YLIM2')
+    if lowerYlim != None and upperYlim != None:
+        axes.set_ylim([int(lowerYlim), int(upperYlim)])
+    
     #plt.show()
-    plt.savefig(f"{cwd}-boxplot.png")
+    plt.savefig(f"{cwd}-boxplot.pdf")
 
 
 if __name__ == "__main__":
