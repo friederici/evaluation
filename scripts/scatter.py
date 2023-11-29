@@ -119,9 +119,15 @@ def main():
     plt.xlabel("number of input files")
     plt.legend()
     axes = plt.gca()
-    axes.set_ylim([0,255000])
+
+    lowerYlim = os.environ.get('YLIM1')
+    upperYlim = os.environ.get('YLIM2')
+    if lowerYlim != None and upperYlim != None:
+        axes.set_ylim([int(lowerYlim), int(upperYlim)])
+    
+    #axes.set_ylim([0,255000])
     #plt.show()
-    plt.savefig(f"{cwd}-scatter.png")
+    plt.savefig(f"{cwd}-scatter.pdf")
 
 
 if __name__ == "__main__":
