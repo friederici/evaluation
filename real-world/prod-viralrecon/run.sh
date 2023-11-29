@@ -5,7 +5,7 @@ config=( "none" "constant" "linear" "combi" "wary" )
 
 basedir=$(pwd)
 
-for i in $(seq 1 1);
+for i in $(seq 1 11);
 do
 	for cnf in "${!config[@]}"
 	do
