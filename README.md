@@ -16,3 +16,16 @@ This repository contains the experimental results of my bachelor’s thesis. Add
 Workflows: https://github.com/friederici/workflows
 
 CWS-fork: https://github.com/friederici/KubernetesScheduler
+
+## Bonus content
+
+### ./4GB-1CPU/
+
+The results that we conducted with the following process configuration:
+
+    cpus 1
+    memory { 4.GB * task.attempt }
+
+### ./real-world/prod-viralrecon/
+
+The results of another real-world workflow, not discussed in the thesis.
