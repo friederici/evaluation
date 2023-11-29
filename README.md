@@ -33,7 +33,7 @@ CWS-fork: https://github.com/friederici/KubernetesScheduler
 
 ### [./4GB-1CPU/](https://github.com/friederici/evaluation/tree/main/4GB-1CPU)
 
-The results that we conducted with the following process configuration:
+The results of initial experiments that we conducted with the following process configuration:
 
     cpus 1
     memory { 4.GB * task.attempt }
