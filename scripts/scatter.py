@@ -116,9 +116,9 @@ def main():
 
     formatter = ticker.FuncFormatter(convert_axis)
     Axis.set_major_formatter(ax.yaxis, formatter)
-    plt.title(f"makespan: {cwd}")
-    plt.ylabel("minutes : seconds")
-    plt.xlabel("number of input files")
+    plt.title(f"Workflow: {cwd}")
+    plt.ylabel("Makespan (minutes:seconds)")
+    plt.xlabel("Number of input files")
     plt.legend()
     axes = plt.gca()
 

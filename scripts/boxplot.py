@@ -116,8 +116,8 @@ def main():
     formatter = ticker.FuncFormatter(convert_axis)
     Axis.set_major_formatter(ax.yaxis, formatter)
     plt.boxplot(test, labels=names)
-    plt.title(f"makespan: {cwd}")
-    plt.ylabel("minutes : seconds")
+    plt.title(f"Workflow: {cwd}")
+    plt.ylabel("Makespan (minutes:seconds)")
     plt.xlabel("Predictor")
     axes = plt.gca()
     
