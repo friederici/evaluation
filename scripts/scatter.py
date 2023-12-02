@@ -8,6 +8,8 @@ from pathlib import Path
 import numpy as np
 import matplotlib.ticker as ticker
 from matplotlib.axis import Axis
+import matplotlib
+matplotlib.rcParams['text.usetex'] = True
 
 
 def extract_data(data, search):
