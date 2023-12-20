@@ -48,3 +48,7 @@ The results of initial experiments that we conducted with the following process 
 ### [./real-world/prod-viralrecon/](https://github.com/friederici/evaluation/tree/main/real-world/prod-viralrecon)
 
 The results of another real-world workflow, not discussed in the thesis.
+
+### [./synthetic/](https://github.com/friederici/evaluation/tree/main/synthetic)
+
+Re-runs with changed configuration.
