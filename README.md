@@ -13,6 +13,13 @@ This repository contains the experimental results of my bachelor’s thesis. Add
 | Experiment 4 | [./6GB-0.5CPU/prod-synt-box-comb-2/](https://github.com/friederici/evaluation/tree/main/6GB-0.5CPU/prod-synt-box-comb-2) |
 | Experiment 5 | [./real-world/prod-rnaseq/](https://github.com/friederici/evaluation/tree/main/real-world/prod-rnaseq)          |
 
+---
+**NOTE**
+
+Nextflow only supports integer numbers for the CPU directive. Experiments 1 to 4 had the value set to 0.5, which caused it to have no effect (= no cpu request). This does not impact the results, as the workflows were memory limited.
+
+---
+
 ### Scripts
 
 | Script                 | Usage                                              |
